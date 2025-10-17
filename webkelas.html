@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8.1 Is The Best Class</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #8a2be2;
+            --secondary: #1a1a1a;
+            --accent: #ff69b4;
+            --light: #f8f8f8;
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--secondary);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-card {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--shadow);
+            animation: popupAppear 0.5s ease-out;
+        }
+
+        @keyframes popupAppear {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .popup-card h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup-card p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .popup-btn {
+            background-color: var(--secondary);
+            color: var(--light);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup-btn:hover {
+            transform: translateY(-3px);
+            background-color: var(--accent);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border-radius: 0 0 20px 20px;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .class-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .class-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation Styles */
+        nav {
+            background-color: var(--secondary);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 0 2rem;
+        }
+
+        .nav-btn {
+            background-color: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        /* Main Content Styles */
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Simple Dropdown Styles */
+        .simple-dropdown {
+            width: 100%;
+            margin: 1rem 0;
+        }
+
+        .dropdown-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: var(--light);
+            padding: 1.2rem 1.5rem;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-btn:hover {
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            transform: translateY(-3px);
+        }
+
+        .dropdown-btn i {
+            color: var(--accent);
+            transition: var(--transition);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .dropdown-btn.active i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0 0 15px 15px;
+            margin-top: 5px;
+        }
+
+        .dropdown-content.active {
+            max-height: 2000px;
+            padding: 1.5rem;
+        }
+
+        /* Structure Section */
+        .structure-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .structure-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .structure-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.3);
+        }
+
+        .structure-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        /* Member Section */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .member-card {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
+        }
+
+        .member-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        /* Timetable Section */
+        .timetable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .timetable th, .timetable td {
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .timetable th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .timetable tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .timetable tr:hover {
+            background-color: rgba(138, 43, 226, 0.2);
+        }
+
+        /* Picket Section */
+        .picket-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .picket-card {
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .picket-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
+        }
+
+        .picket-day {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            height: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            padding: 2rem 0;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-text {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background-color: var(--accent);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .class-title {
+                font-size: 2rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 80%;
+            }
+            
+            .timetable {
+                font-size: 0.8rem;
+            }
+            
+            .timetable th, .timetable td {
+                padding: 0.5rem;
+            }
+            
+            .members-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .dropdown-btn {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Popup Card -->
+    <div class="popup-overlay" id="popup">
+        <div class="popup-card">
+            <h1>Welcome to Web 8-1!</h1>
+            <p>Website Resmi Kelas 8.1 - The Best Class Ever</p>
+            <button class="popup-btn" id="closePopup">Masuk ke Website</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <h1 class="class-title">8.1 Is The Best Class</h1>
+            <p class="class-subtitle">Kelas Terbaik dengan Semangat Belajar Tinggi</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <button class="nav-btn active" data-target="structure">Structure Class</button>
+            <button class="nav-btn" data-target="members">Member Class</button>
+            <button class="nav-btn" data-target="timetable">Lesson Timetable</button>
+            <button class="nav-btn" data-target="picket">Picket Schedule</button>
+            <button class="nav-btn" data-target="gallery">Class Photo</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Structure Section -->
+        <section id="structure" class="section active">
+            <h2 class="section-title">Structure Class</h2>
+            
+            <div class="simple-dropdown">
+                <button class="dropdown-btn active">
+                    <span><i class="fas fa-user-tie"></i> Wali Kelas</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-content active">
+                    <div class="structure-container">
+                        <div class="structure-card">
+                            <div class="structure-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <h3>Wali Kelas</h3>
+                            <p>Bu Asfi Azjmayah</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="simple-dropdown">
+                <button class="dropdown-btn">
+                    <span><i class="fas fa-crown"></i> Ketua & Wakil Kelas</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <div class="structure-container">
+                        <div class="structure-card">
+                            <div class="structure-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <h3>Ketua Kelas</h3>
+                            <p>Muhammad Azzam Rachminto</p>
+                        </div>
+                        <div class="structure-card">
+                            <div class="structure-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3>Wakil Ketua</h3>
+                            <p>Zaydan Alkhafi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="simple-dropdown">
+                <button class="dropdown-btn">
+                    <span><i class="fas fa-book"></i> Bendahara & Sekretaris</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <div class="structure-container">
+                        <div class="structure-card">
+                            <div class="structure-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h3>Bendahara</h3>
+                            <p>Fahriyah Ashilah</p>
+                        </div>
+                        <div class="structure-card">
+                            <div class="structure-icon">
+                                <i class="fas fa-pencil-alt"></i>
+                            </div>
+                            <h3>Sekretaris</h3>
+                            <p>Yasmin Awaliyah</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="simple-dropdown">
+                <button class="dropdown-btn">
+                    <span><i class="fas fa-paint-brush"></i> Seksi Kebersihan</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <div class="structure-container">
+                        <div class="structure-card">
+                            <div class="structure-icon">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <h3>Koordinator</h3>
+                            <p>Ghani Ilmi Rizky</p>
+                        </div>
+                        <div class="structure-card">
+                            <div class="structure-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3>Anggota</h3>
+                            <p>Rayyan Abdul Hakim</p>
+                            <p>Ahmad Azzam AN</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Members Section -->
+        <section id="members" class="section">
+            <h2 class="section-title">Member Class</h2>
+            <div class="members-grid">
+                <!-- Anggota kelas akan ditambahkan dengan JavaScript -->
+            </div>
+        </section>
+
+        <!-- Timetable Section -->
+        <section id="timetable" class="section">
+            <h2 class="section-title">Lesson Timetable</h2>
+            <table class="timetable">
+                <thead>
+                    <tr>
+                        <th>Hari</th>
+                        <th>Jam 1</th>
+                        <th>Jam 2</th>
+                        <th>Jam 3</th>
+                        <th>Jam 4</th>
+                        <th>Jam 5</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Senin</td>
+                        <td>Matematika</td>
+                        <td>Bahasa Indonesia</td>
+                        <td>IPA</td>
+                        <td>IPS</td>
+                        <td>Seni Budaya</td>
+                    </tr>
+                    <tr>
+                        <td>Selasa</td>
+                        <td>Bahasa Inggris</td>
+                        <td>PJOK</td>
+                        <td>Matematika</td>
+                        <td>Bahasa Indonesia</td>
+                        <td>PKN</td>
+                    </tr>
+                    <tr>
+                        <td>Rabu</td>
+                        <td>IPA</td>
+                        <td>IPS</td>
+                        <td>Prakarya</td>
+                        <td>Bahasa Inggris</td>
+                        <td>Agama</td>
+                    </tr>
+                    <tr>
+                        <td>Kamis</td>
+                        <td>Matematika</td>
+                        <td>Bahasa Indonesia</td>
+                        <td>IPA</td>
+                        <td>PJOK</td>
+                        <td>Bahasa Daerah</td>
+                    </tr>
+                    <tr>
+                        <td>Jumat</td>
+                        <td>IPS</td>
+                        <td>PKN</td>
+                        <td>Bahasa Inggris</td>
+                        <td>Seni Budaya</td>
+                        <td>Ekstrakurikuler</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Picket Section -->
+        <section id="picket" class="section">
+            <h2 class="section-title">Picket Schedule</h2>
+            <div class="picket-grid">
+                <div class="picket-card">
+                    <div class="picket-day">Senin</div>
+                    <p>Zaydan Al Kahfi</p>
+                    <p>Muhammad Azzam Rachminto</p>
+                    <p>Silva atussoleha</p>
+                </div>
+                <div class="picket-card">
+                    <div class="picket-day">Selasa</div>
+                    <p>Meldayuwan Kurota A'yun</p>
+                    <p>Syifa Fauziah</p>
+                    <p>Arisyah Azzahra</p>
+                </div>
+                <div class="picket-card">
+                    <div class="picket-day">Rabu</div>
+                    <p>Aisha Aimma Khairati</p>
+                    <p>Khufrotul A'fifah</p>
+                    <p>Ameera Nur Aini Rahman</p>
+                </div>
+                <div class="picket-card">
+                    <div class="picket-day">Kamis</div>
+                    <p>Noor Fitriana</p>
+                    <p>Aulia Azzahra</p>
+                    <p>Fahriyah Ashilah</p>
+                </div>
+                <div class="picket-card">
+                    <div class="picket-day">Jumat</div>
+                    <p>Nikita Razaqia</p>
+                    <p>Ahmad Rizqon Khoirul Akbar</p>
+                    <p>Aulia Rahma Dia</p>
+                </div>
+                <div class="picket-card">
+                    <div class="picket-day">Sabtu</div>
+                    <p>Ghani Ilmi Rizky</p>
+                    <p>Rayyan Abdul Hakim</p>
+                    <p>Yasmin Awaliyah</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="section">
+            <h2 class="section-title">Class Photo</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Siswa Belajar">
+                    <div class="gallery-caption">Siswa Belajar</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Belajar Kelompok">
+                    <div class="gallery-caption">Belajar Kelompok</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Presentasi Kelas">
+                    <div class="gallery-caption">Presentasi Kelas</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Kegiatan Kelompok">
+                    <div class="gallery-caption">Kegiatan Kelompok</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">8.1 Is The Best Class - Kelas Terbaik dengan Semangat Juang Tinggi</p>
+            <p>&copy; 2023 Kelas 8.1. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Daftar anggota kelas
+        const members = [
+            "Zaydan Al Kahfi",
+            "Muhammad Azzam Rachminto",
+            "Silva atussoleha",
+            "Meldayuwan Kurota A'yun",
+            "Syifa Fauziah",
+            "Arisyah Azzahra",
+            "Aisha Aimma Khairati",
+            "Khufrotul A'fifah",
+            "Ameera Nur Aini Rahman",
+            "Noor Fitriana",
+            "Aulia Azzahra",
+            "Fahriyah Ashilah",
+            "Nikita Razaqia",
+            "Ahmad Rizqon Khoirul Akbar",
+            "Aulia Rahma Dia",
+            "Ghani Ilmi Rizky",
+            "Rayyan Abdul Hakim",
+            "Yasmin Awaliyah",
+            "Irda Mutiara Anzairaq",
+            "Lami Adli Farhan",
+            "Ahmad Azzam AN",
+            "Adib Aulia Amin",
+            "Muhammad Fathir Aldi Syahputra",
+            "Nurlatifah"
+        ];
+
+        // Fungsi untuk membuat kartu anggota
+        function createMemberCards() {
+            const membersGrid = document.querySelector('.members-grid');
+            
+            members.forEach(member => {
+                const memberCard = document.createElement('div');
+                memberCard.className = 'member-card';
+                
+                const avatar = document.createElement('div');
+                avatar.className = 'member-avatar';
+                avatar.innerHTML = `<i class="fas fa-user"></i>`;
+                
+                const name = document.createElement('h3');
+                name.textContent = member;
+                
+                memberCard.appendChild(avatar);
+                memberCard.appendChild(name);
+                membersGrid.appendChild(memberCard);
+            });
+        }
+
+        // Fungsi untuk navigasi antar section
+        function setupNavigation() {
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const sections = document.querySelectorAll('.section');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const target = button.getAttribute('data-target');
+                    
+                    // Hapus kelas active dari semua tombol dan section
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+                    
+                    // Tambah kelas active ke tombol dan section yang dipilih
+                    button.classList.add('active');
+                    document.getElementById(target).classList.add('active');
+                });
+            });
+        }
+
+        // Fungsi untuk menutup popup
+        function setupPopup() {
+            const popup = document.getElementById('popup');
+            const closeBtn = document.getElementById('closePopup');
+            
+            closeBtn.addEventListener('click', () => {
+                popup.style.display = 'none';
+            });
+        }
+
+        // Fungsi untuk dropdown sederhana
+        function setupSimpleDropdowns() {
+            const dropdownBtns = document.querySelectorAll('.dropdown-btn');
+            
+            dropdownBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const content = btn.nextElementSibling;
+                    
+                    // Toggle active class pada tombol dan konten
+                    btn.classList.toggle('active');
+                    content.classList.toggle('active');
+                });
+            });
+        }
+
+        // Inisialisasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            createMemberCards();
+            setupNavigation();
+            setupPopup();
+            setupSimpleDropdowns();
+        });
+    </script>
+</body>
+</html>
